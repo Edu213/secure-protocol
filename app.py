@@ -29,14 +29,16 @@ def home():
         code = request.form.get('code')
         join = request.form.get('join', False)
         if not name:
-            return render_template('home.html', error="Name is required", code=code)
+            return render_template('home.html', error="Name is required", code=code, rooms=rooms)
         if create != False:
             room_code = generate_room_code(6, list(rooms.keys()))
             new_room = {
                 'members': 0,
-                'messages': []
+                'messages': [],
+                'creator': name
             }
             rooms[room_code] = new_room
+            print("Salas activas:", rooms)
         if join != False:
             # no code
             if not code:
@@ -49,7 +51,7 @@ def home():
         session['name'] = name
         return redirect(url_for('room'))
     else:
-        return render_template('home.html')
+        return render_template('home.html', rooms=rooms)
 
 @app.route('/room')
 def room():

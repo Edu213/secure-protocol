@@ -17,6 +17,12 @@
         <hr />
         <button type="submit" id="create" name="create">Create Room</button>
     </form>
-
+    <h2>
+        <ul id="rooms-list">
+            {% for room_code, room in rooms.items() %}
+            <li>Room Code: {{ room_code }} - Created by: {{ room.creator }}</li>
+            {% endfor %}
+        </ul>
+    </h2>
 </div>
 {% endblock %}
